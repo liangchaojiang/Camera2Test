@@ -2,6 +2,7 @@ package com.baolan.liangchao.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView close;
 
     private TextView previewtextview;
-
+    private TextView switch2gl;
     public static final int FIRST=1;
 
     public static final int SECOND=2;
@@ -121,6 +122,15 @@ public class MainActivity extends AppCompatActivity {
         if(checkSelfPermission  == PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},1);
         }
+        switch2gl = findViewById(R.id.switch2gl);
+        switch2gl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CameraViewGl.class);
+                startActivity(intent);
+            }
+        });
+
 
         tv_test = findViewById(R.id.tv_test);
 
