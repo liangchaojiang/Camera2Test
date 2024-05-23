@@ -19,28 +19,30 @@
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints" />
     <com.baolan.liangchao.camera.MyGLSurfaceView
-
         app:layout_constraintTop_toBottomOf="@id/btStart"
         android:id="@+id/glPanel"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
         tools:ignore="MissingConstraints" />
     <com.baolan.liangchao.camera.MyGLSurfaceView
-        app:layout_constraintTop_toBottomOf="@id/glPanel"
+        app:layout_constraintTop_toBottomOf="@id/btStart"
+        app:layout_constraintLeft_toRightOf="@id/glPanel"
         android:id="@+id/glPanel1"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
         tools:ignore="MissingConstraints" />
     <com.baolan.liangchao.camera.MyGLSurfaceView
-        app:layout_constraintTop_toBottomOf="@id/glPanel1"
+        app:layout_constraintTop_toBottomOf="@id/btStart"
+        app:layout_constraintLeft_toRightOf="@id/glPanel1"
         android:id="@+id/glPanel2"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
         tools:ignore="MissingConstraints" />
     <com.baolan.liangchao.camera.MyGLSurfaceView
-        app:layout_constraintTop_toBottomOf="@id/glPanel2"
+        app:layout_constraintTop_toBottomOf="@id/btStart"
+        app:layout_constraintLeft_toRightOf="@id/glPanel2"
         android:id="@+id/glPanel3"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
         tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

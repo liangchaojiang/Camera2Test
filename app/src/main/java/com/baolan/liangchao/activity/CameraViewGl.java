@@ -3,6 +3,7 @@ package com.baolan.liangchao.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
@@ -16,15 +17,17 @@ import com.baolan.liangchao.R;
 import com.baolan.liangchao.camera.Camera2Helper;
 import com.baolan.liangchao.camera.Camera2Listener;
 import com.baolan.liangchao.camera.MyGLSurfaceView;
-
-import java.nio.ByteBuffer;
+import com.baolan.liangchao.manager.CodeManager;
 
 public class CameraViewGl extends AppCompatActivity {
     private static final String TAG = "CameraViewGl";
     Button btStart,btStop;
-    MyGLSurfaceView mPreview2,mPreview21;
-    private Camera2Listener listener2,listener21,listener22;
-    private Camera2Helper camera2,camera21,camera22;
+    MyGLSurfaceView mPreview2,mPreview21,mPreview22,mPreview23;
+    private Camera2Listener listener2,listener21,listener22,listener23;
+    private Camera2Helper camera2,camera21,camera22,camera23;
+
+    private CodeManager codeManager = null;
+    private Context mContext;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -35,8 +38,13 @@ public class CameraViewGl extends AppCompatActivity {
         btStop = (Button) findViewById(R.id.btStop);
         mPreview2 = (MyGLSurfaceView) findViewById(R.id.glPanel);
         mPreview21 = (MyGLSurfaceView) findViewById(R.id.glPanel1);
+        mPreview22 = (MyGLSurfaceView) findViewById(R.id.glPanel2);
+        mPreview23 = (MyGLSurfaceView) findViewById(R.id.glPanel3);
         mPreview2.setYuvDataSize(1920,1080);
         mPreview21.setYuvDataSize(1920,1080);
+        mPreview22.setYuvDataSize(1920,1080);
+        mPreview23.setYuvDataSize(1920,1080);
+        mContext = this;
         CameraManager cameraManager = (CameraManager) getSystemService(CAMERA_SERVICE);
         try {
             String [] cameraList = cameraManager.getCameraIdList();
@@ -65,7 +73,10 @@ public class CameraViewGl extends AppCompatActivity {
                     pCBCount = 0;
                 }
                 mPreview2.feedData(rawData,1);
-
+                if(codeManager == null){
+                    codeManager = new CodeManager(mContext, Integer.parseInt(camera.getId()));
+                }
+                codeManager.setData(rawData);
             }
 
             @Override
@@ -96,7 +107,13 @@ public class CameraViewGl extends AppCompatActivity {
                     Log.d(TAG, "cameraID =  " + camera.getId() + " onImageAvailable fps = " + pCBCount);
                     pCBCount = 0;
                 }
+
                 mPreview21.feedData(rawData,1);
+
+                if(codeManager == null){
+                    codeManager = new CodeManager(mContext, Integer.parseInt(camera.getId()));
+                }
+                codeManager.setData(rawData);
             }
 
             @Override
@@ -127,7 +144,12 @@ public class CameraViewGl extends AppCompatActivity {
                     Log.d(TAG, "cameraID =  " + camera.getId() + " onImageAvailable fps = " + pCBCount);
                     pCBCount = 0;
                 }
+                mPreview21.feedData(rawData,1);
 
+                if(codeManager == null){
+                    codeManager = new CodeManager(mContext, Integer.parseInt(camera.getId()));
+                }
+                codeManager.setData(rawData);
             }
 
             @Override
@@ -138,6 +160,43 @@ public class CameraViewGl extends AppCompatActivity {
             @Override
             public void onCameraError(Exception e) {
                 Log.i(TAG,"onCameraError22");
+            }
+        };
+
+
+        listener23 = new Camera2Listener() {
+            @Override
+            public void onCameraOpened(CameraDevice camera, String cameraId, int width, int height) {
+                Log.i(TAG,"onCameraOpened23");
+            }
+            private int pCBCount = 0;
+            private long startTimeNs, endTimeNs = 0;
+            @Override
+            public void onPreview(byte[] rawData, int width, int height, boolean isRgb32, CameraDevice camera) {
+                Log.i(TAG,"onPreview23");
+                endTimeNs = System.nanoTime();
+                pCBCount++;
+                if ((endTimeNs - startTimeNs) > 1000000000) {
+                    startTimeNs = endTimeNs;
+                    Log.d(TAG, "cameraID =  " + camera.getId() + " onImageAvailable fps = " + pCBCount);
+                    pCBCount = 0;
+                }
+                mPreview21.feedData(rawData,1);
+
+                if(codeManager == null){
+                    codeManager = new CodeManager(mContext, Integer.parseInt(camera.getId()));
+                }
+                codeManager.setData(rawData);
+            }
+
+            @Override
+            public void onCameraClosed() {
+                Log.i(TAG,"onCameraClosed23");
+            }
+
+            @Override
+            public void onCameraError(Exception e) {
+                Log.i(TAG,"onCameraError23");
             }
         };
 
@@ -172,6 +231,16 @@ public class CameraViewGl extends AppCompatActivity {
                         .cameraListener(listener22)
                         .build();
                 camera22.start();
+
+                camera23 = new Camera2Helper.Builder()
+                        .rgb32Format(false)
+                        .specificCameraId(String.valueOf(3))
+                        .context(CameraViewGl.this.getBaseContext())
+                        .maxPreviewSize(new Size(1920, 1080))
+                        .previewSize(new Size(1920, 1080))
+                        .cameraListener(listener23)
+                        .build();
+                //camera23.start();
             }
         });
 
@@ -181,6 +250,7 @@ public class CameraViewGl extends AppCompatActivity {
                 camera2.stop();
                 camera21.stop();
                 camera22.stop();
+                //camera23.stop();
             }
         });
 
