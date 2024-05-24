@@ -7,6 +7,7 @@ import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
@@ -27,6 +28,9 @@ public class CameraViewGl extends AppCompatActivity {
     private Camera2Helper camera2,camera21,camera22,camera23;
 
     private CodeManager codeManager = null;
+    private CodeManager codeManager1 = null;
+    private CodeManager codeManager2= null;
+    private CodeManager codeManager3= null;
     private Context mContext;
 
     @SuppressLint("MissingInflatedId")
@@ -63,7 +67,7 @@ public class CameraViewGl extends AppCompatActivity {
             private int pCBCount = 0;
             private long startTimeNs, endTimeNs = 0;
             @Override
-            public void onPreview(byte[] rawData, int width, int height, boolean isRgb32, CameraDevice camera) {
+            public void onPreview(Image rawData, int width, int height, boolean isRgb32, CameraDevice camera) {
                 Log.i(TAG,"onPreview");
                 endTimeNs = System.nanoTime();
                 pCBCount++;
@@ -72,11 +76,11 @@ public class CameraViewGl extends AppCompatActivity {
                     Log.d(TAG, "cameraID =  " + camera.getId() + " onImageAvailable fps = " + pCBCount);
                     pCBCount = 0;
                 }
-                mPreview2.feedData(rawData,1);
-                if(codeManager == null){
-                    codeManager = new CodeManager(mContext, Integer.parseInt(camera.getId()));
-                }
-                codeManager.setData(rawData);
+                mPreview2.feedNv12DataDirect(rawData.getPlanes()[0].getBuffer(),rawData.getPlanes()[1].getBuffer());
+//                if(codeManager == null){
+//                    codeManager = new CodeManager(mContext, Integer.parseInt(camera.getId()));
+//                }
+//                codeManager.setData(rawData);
             }
 
             @Override
@@ -98,7 +102,7 @@ public class CameraViewGl extends AppCompatActivity {
             private int pCBCount = 0;
             private long startTimeNs, endTimeNs = 0;
             @Override
-            public void onPreview(byte[] rawData, int width, int height, boolean isRgb32, CameraDevice camera) {
+            public void onPreview(Image rawData, int width, int height, boolean isRgb32, CameraDevice camera) {
                 Log.i(TAG,"onPreview21");
                 endTimeNs = System.nanoTime();
                 pCBCount++;
@@ -108,12 +112,12 @@ public class CameraViewGl extends AppCompatActivity {
                     pCBCount = 0;
                 }
 
-                mPreview21.feedData(rawData,1);
+                mPreview21.feedNv12DataDirect(rawData.getPlanes()[0].getBuffer(),rawData.getPlanes()[1].getBuffer());
 
-                if(codeManager == null){
-                    codeManager = new CodeManager(mContext, Integer.parseInt(camera.getId()));
-                }
-                codeManager.setData(rawData);
+//                if(codeManager1 == null){
+//                    codeManager1 = new CodeManager(mContext, Integer.parseInt(camera.getId()));
+//                }
+//                codeManager1.setData(rawData);
             }
 
             @Override
@@ -135,7 +139,7 @@ public class CameraViewGl extends AppCompatActivity {
             private int pCBCount = 0;
             private long startTimeNs, endTimeNs = 0;
             @Override
-            public void onPreview(byte[] rawData, int width, int height, boolean isRgb32, CameraDevice camera) {
+            public void onPreview(Image rawData, int width, int height, boolean isRgb32, CameraDevice camera) {
                 Log.i(TAG,"onPreview22");
                 endTimeNs = System.nanoTime();
                 pCBCount++;
@@ -144,12 +148,12 @@ public class CameraViewGl extends AppCompatActivity {
                     Log.d(TAG, "cameraID =  " + camera.getId() + " onImageAvailable fps = " + pCBCount);
                     pCBCount = 0;
                 }
-                mPreview21.feedData(rawData,1);
+                mPreview22.feedNv12DataDirect(rawData.getPlanes()[0].getBuffer(),rawData.getPlanes()[2].getBuffer());
 
-                if(codeManager == null){
-                    codeManager = new CodeManager(mContext, Integer.parseInt(camera.getId()));
-                }
-                codeManager.setData(rawData);
+//                if(codeManager2 == null){
+//                    codeManager2 = new CodeManager(mContext, Integer.parseInt(camera.getId()));
+//                }
+//                codeManager2.setData(rawData);
             }
 
             @Override
@@ -172,7 +176,7 @@ public class CameraViewGl extends AppCompatActivity {
             private int pCBCount = 0;
             private long startTimeNs, endTimeNs = 0;
             @Override
-            public void onPreview(byte[] rawData, int width, int height, boolean isRgb32, CameraDevice camera) {
+            public void onPreview(Image rawData, int width, int height, boolean isRgb32, CameraDevice camera) {
                 Log.i(TAG,"onPreview23");
                 endTimeNs = System.nanoTime();
                 pCBCount++;
@@ -181,12 +185,13 @@ public class CameraViewGl extends AppCompatActivity {
                     Log.d(TAG, "cameraID =  " + camera.getId() + " onImageAvailable fps = " + pCBCount);
                     pCBCount = 0;
                 }
-                mPreview21.feedData(rawData,1);
-
-                if(codeManager == null){
-                    codeManager = new CodeManager(mContext, Integer.parseInt(camera.getId()));
-                }
-                codeManager.setData(rawData);
+                Log.d(TAG,"liangchao rawData start"+camera.getId());
+                mPreview23.feedNv12DataDirect(rawData.getPlanes()[0].getBuffer(),rawData.getPlanes()[2].getBuffer());
+                Log.d(TAG,"liangchao rawData stop"+camera.getId());
+//                if(codeManager3 == null){
+//                    codeManager3 = new CodeManager(mContext, Integer.parseInt(camera.getId()));
+//                }
+//                codeManager3.setData(rawData);
             }
 
             @Override

@@ -4,6 +4,7 @@ import android.content.Context
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
 import android.util.Log
+import java.nio.ByteBuffer
 
 /**
  * 创建者     likunlun
@@ -62,6 +63,15 @@ class MyGLSurfaceView(context: Context, attributeSet: AttributeSet?) : GLSurface
         }
         renderer.feedData(yuvData, type)
         // 请求渲染新的YUV数据
+        requestRender()
+    }
+
+    fun feedNv12DataDirect(yData:ByteBuffer,uvData:ByteBuffer){
+        if(yData==null || uvData == null){
+            return
+        }
+        Log.i(TAG, "yData $yData uvData $uvData")
+        renderer.feedDataDirect(yData,uvData)
         requestRender()
     }
 }

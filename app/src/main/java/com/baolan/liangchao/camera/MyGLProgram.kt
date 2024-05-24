@@ -75,6 +75,9 @@ class MyGLProgram {
      * @param type YUV数据格式类型
      */
     fun drawTexture(mvpMatrix: FloatArray, type: Int) {
+        val frameBuffers = IntBuffer.wrap(IntArray(3))
+
+        GLES20.glGenFramebuffers(1,frameBuffers)
 
         GLES20.glUseProgram(mProgram)
         checkGlError("glUseProgram")

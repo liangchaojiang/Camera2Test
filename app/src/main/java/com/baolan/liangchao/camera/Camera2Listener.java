@@ -1,6 +1,7 @@
 package com.baolan.liangchao.camera;
 
 import android.hardware.camera2.CameraDevice;
+import android.media.Image;
 
 
 public interface Camera2Listener {
@@ -13,10 +14,10 @@ public interface Camera2Listener {
 
     /**
      * 预览数据回调
-     * @param rawData 预览数据
+     * @param  预览数据
      * @param camera 相机实例
      */
-    void onPreview(byte[] rawData, int width, int height, boolean isRgb32, CameraDevice camera);
+    void onPreview(Image image, int width, int height, boolean isRgb32, CameraDevice camera);
 
     /**
      * 当相机关闭时执行

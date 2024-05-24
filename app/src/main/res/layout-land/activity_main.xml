@@ -44,6 +44,16 @@
             android:layout_weight="1"
             android:layout_marginLeft="60dp"
             />
+        <TextView
+            android:id="@+id/switch2gl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳转测试"
+            android:textSize="17sp"
+            android:textColor="@android:color/holo_blue_light"
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            />
     </LinearLayout>
 
     <LinearLayout

@@ -692,12 +692,14 @@ public class Camera2Helper {
                 int fmt = image.getFormat();
                 if(fmt == ImageFormat.YUV_420_888) {
                     // Y:U:V == 4:2:2
+                    Log.d(TAG,"liangchao 420to12 start "+mCameraId);
                     byte[] nv12 = ImageUtils.YUV_420_888toNV12(image);
-                    camera2Listener.onPreview(nv12, image.getWidth(), image.getHeight(), false, mCameraDevice);
+                    Log.d(TAG,"liangchao 420to12 stop"+mCameraId);
+                    camera2Listener.onPreview(image, image.getWidth(), image.getHeight(), false, mCameraDevice);
                 }else if(fmt == PixelFormat.RGBA_8888){
                     Log.d(TAG, "here..."+mFrameCount);
-                    byte[] rgba = ImageToRGBA(image);
-                    camera2Listener.onPreview(rgba, image.getWidth(), image.getHeight(), true, mCameraDevice);
+                    //byte[] rgba = ImageToRGBA(image);
+                    camera2Listener.onPreview(image, image.getWidth(), image.getHeight(), true, mCameraDevice);
                 }
             }catch (Exception e){
                 e.printStackTrace();

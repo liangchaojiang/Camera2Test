@@ -90,7 +90,7 @@ class MyGLRenderer : GLSurfaceView.Renderer {
                     u.position(0)
                     v.position(0)
                     mProgram.feedTextureWithImageData(y, u, v, mVideoWidth, mVideoHeight)
-                } else {
+                } else  {
                     uv.position(0)
                     mProgram.feedTextureWithImageData(y, uv, mVideoWidth, mVideoHeight)
                 }
@@ -221,5 +221,13 @@ class MyGLRenderer : GLSurfaceView.Renderer {
                 }
             }
         }
+    }
+    fun feedDataDirect(yData: ByteBuffer, uvData:ByteBuffer) {
+        this.type = 1
+        y.clear()
+        uv.clear()
+
+        y = yData
+        uv = uvData
     }
 }
