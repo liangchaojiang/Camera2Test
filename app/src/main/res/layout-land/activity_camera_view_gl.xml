@@ -5,7 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.CameraViewGl">
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        tools:ignore="MissingConstraints" />
     <Button
+        app:layout_constraintLeft_toRightOf="@id/tv1"
         android:id="@+id/btStart"
         android:text="Start"
         android:layout_width="wrap_content"

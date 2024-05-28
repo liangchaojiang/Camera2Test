@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Test1078">
         <activity
+            android:turnScreenOn="true"
             android:name=".activity.CameraViewGl"
             android:exported="false" />
         <activity
