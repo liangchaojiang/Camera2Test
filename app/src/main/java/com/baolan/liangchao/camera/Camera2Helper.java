@@ -693,7 +693,7 @@ public class Camera2Helper {
                 if(fmt == ImageFormat.YUV_420_888) {
                     // Y:U:V == 4:2:2
                     Log.d(TAG,"liangchao 420to12 start "+mCameraId);
-                    byte[] nv12 = ImageUtils.YUV_420_888toNV12(image);
+                    //byte[] nv12 = ImageUtils.YUV_420_888toNV12(image);
                     Log.d(TAG,"liangchao 420to12 stop"+mCameraId);
                     camera2Listener.onPreview(image, image.getWidth(), image.getHeight(), false, mCameraDevice);
                 }else if(fmt == PixelFormat.RGBA_8888){
