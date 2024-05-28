@@ -148,7 +148,7 @@ public class CameraViewGl extends AppCompatActivity {
                     Log.d(TAG, "cameraID =  " + camera.getId() + " onImageAvailable fps = " + pCBCount);
                     pCBCount = 0;
                 }
-                mPreview22.feedNv12DataDirect(rawData.getPlanes()[0].getBuffer(),rawData.getPlanes()[2].getBuffer());
+                mPreview22.feedNv12DataDirect(rawData.getPlanes()[0].getBuffer(),rawData.getPlanes()[1].getBuffer());
 
 //                if(codeManager2 == null){
 //                    codeManager2 = new CodeManager(mContext, Integer.parseInt(camera.getId()));
@@ -186,7 +186,7 @@ public class CameraViewGl extends AppCompatActivity {
                     pCBCount = 0;
                 }
                 Log.d(TAG,"liangchao rawData start"+camera.getId());
-                mPreview23.feedNv12DataDirect(rawData.getPlanes()[0].getBuffer(),rawData.getPlanes()[2].getBuffer());
+                mPreview23.feedNv12DataDirect(rawData.getPlanes()[0].getBuffer(),rawData.getPlanes()[1].getBuffer());
                 Log.d(TAG,"liangchao rawData stop"+camera.getId());
 //                if(codeManager3 == null){
 //                    codeManager3 = new CodeManager(mContext, Integer.parseInt(camera.getId()));
@@ -245,7 +245,7 @@ public class CameraViewGl extends AppCompatActivity {
                         .previewSize(new Size(1920, 1080))
                         .cameraListener(listener23)
                         .build();
-                //camera23.start();
+                camera23.start();
             }
         });
 
@@ -255,7 +255,7 @@ public class CameraViewGl extends AppCompatActivity {
                 camera2.stop();
                 camera21.stop();
                 camera22.stop();
-                //camera23.stop();
+                camera23.stop();
             }
         });
 
